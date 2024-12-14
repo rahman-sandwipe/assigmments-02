@@ -11,15 +11,6 @@ class ProfileController extends Controller
         $id = $request->id;
         $name = 'Donald Trump';
         $age = '75';
-        
-        // variables in $data variable as associative array with values
-        $data = [
-            'id'    => $id,
-            'name'  => $name,
-            'age'   => $age
-        ];
-        
-        //Set your cookie variables
 
         // cookie set application -> cookie
         $cookie_name = "access_token";
@@ -30,7 +21,18 @@ class ProfileController extends Controller
         $cookie_secure = false;
         $cookie_httponly = true;
         
-        $returnCookie=setcookie($cookie_name,$cookie_value,$cookie_expiry,$cookie_path,$cookie_domain,$cookie_secure,$cookie_httponly);
-        return response()->json($returnCookie, 200);
+        $cookie=setcookie($cookie_name,$cookie_value,$cookie_expiry,$cookie_path,$cookie_domain,$cookie_secure,$cookie_httponly);
+        
+        // variables in $data variable as associative array with values
+        $data = [
+            'token' => $cookie,
+            'id'    => $id,
+            'name'  => $name,
+            'age'   => $age
+        ];
+        
+        //Set your cookie variables
+
+        return response()->json($data, 200);
     }
 }
